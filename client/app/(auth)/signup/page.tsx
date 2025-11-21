@@ -1,29 +1,33 @@
-"use client"
-import { useState } from "react"
-import axios from "axios"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, Controller } from "react-hook-form"
-import { User, AtSign, Lock, Phone, Mail } from "lucide-react"
-import PhoneInput from "react-phone-number-input"
-import "react-phone-number-input/style.css"
-import { parsePhoneNumberFromString } from "libphonenumber-js"
-import { useRouter } from "next/navigation"
-import { useAuth } from "@/context/AuthContext" 
-import { SIGN_UP_FORM_FIELDS } from "@/constants/constants"
+"use client";
+import axios from "axios";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
+import { Phone } from "lucide-react";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { useRouter } from "next/navigation";
+import { SIGN_UP_FORM_FIELDS } from "@/constants/constants";
 
 const signUpSchema = z.object({
   fullName: z.string().min(1, "Full Name is required"),
   username: z.string().min(3, "Username must be at least 3 characters"),
   email: z.string().email("Please enter a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  phone: z.string().refine((val) => {
-      const phoneNumber = parsePhoneNumberFromString(val || "")
-      return phoneNumber?.isValid()
-    }, {
-      message: "Please enter a valid phone number in international format (e.g. +1234567890)",
-    }),
-})
+  phone: z.string().refine(
+    (val) => {
+      const phoneNumber = parsePhoneNumberFromString(val || "");
+      return phoneNumber?.isValid();
+    },
+    {
+      message:
+        "Please enter a valid phone number in international format (e.g. +1234567890)",
+    },
+  ),
+});
+
+type SignupSchemaType = z.infer<typeof signUpSchema>;
 
 export default function SignUp() {
   const {
@@ -32,34 +36,41 @@ export default function SignUp() {
     control,
     formState: { errors },
     reset,
-  } = useForm({
+  } = useForm<SignupSchemaType>({
     resolver: zodResolver(signUpSchema),
-  })
+  });
+  const router = useRouter();
 
-  const { login } = useAuth()
-  const router = useRouter()
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: SignupSchemaType) => {
     try {
-      const response = await axios.post(`${import.meta.env.NEXT_BACKEND_DOMAIN}/api/v1/auth/signup`, data, {
-        headers: { "Content-Type": "application/json" },
-      })
-      login(response.data.user)
-      router.push("/")
-      reset({ fullName: "",username: "",email: "", password: "", phone: "",})
-      console.log("Registration Successful", response.data)
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/auth/signup`,
+        data,
+        {
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      router.push("/");
+      reset({ fullName: "", username: "", email: "", password: "", phone: "" });
+      console.log("Registration Successful", response.data);
     } catch (error) {
-      console.error("Submission error:", error)
+      console.error("Submission error:", error);
     }
-  }
+  };
 
   return (
     <section className="max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">Create Account</h1>
+      <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+        Create Account
+      </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {SIGN_UP_FORM_FIELDS.map((field) => (
           <div key={field.name} className="space-y-1">
-            <label htmlFor={field.name} className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor={field.name}
+              className="block text-sm font-medium text-gray-700"
+            >
               {field.label}
             </label>
             <div className="relative">
@@ -73,7 +84,7 @@ export default function SignUp() {
                 className={`w-full pl-10 p-2 border rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
                   errors[field.name] ? "border-red-500" : "border-gray-300"
                 }`}
-                {...register(field.name)}
+                {...register(field.name as keyof SignupSchemaType)}
               />
             </div>
             {errors[field.name] && (
@@ -84,8 +95,11 @@ export default function SignUp() {
           </div>
         ))}
 
-       <div className="space-y-1">
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+        <div className="space-y-1">
+          <label
+            htmlFor="phone"
+            className="block text-sm font-medium text-gray-700"
+          >
             Phone Number
           </label>
           <div className="relative">
@@ -109,7 +123,9 @@ export default function SignUp() {
             />
           </div>
           {errors.phone && (
-            <p className="text-red-500 text-xs mt-1">{errors.phone.message?.toString()}</p>
+            <p className="text-red-500 text-xs mt-1">
+              {errors.phone.message?.toString()}
+            </p>
           )}
         </div>
 
@@ -121,8 +137,5 @@ export default function SignUp() {
         </button>
       </form>
     </section>
-  )
+  );
 }
-
-
-

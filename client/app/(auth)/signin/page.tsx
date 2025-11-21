@@ -6,6 +6,7 @@ import { Mail, Lock } from "lucide-react"
 import { SIGN_IN_FORM_FIELDS } from "@/constants/constants"
 import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
+import { useAlert } from "@/hooks/useAlert"
 
 const signInSchema = z.object({
   email: z.string().email("Email is required").min(1, "Email is required"),
@@ -25,6 +26,7 @@ export default function SignIn() {
     resolver: zodResolver(signInSchema),
   })
     const { error, login } = useAuth()
+  const { Alert, triggerAlert } = useAlert()
 
   const onSubmit = async (data: SignInFormData) => {
     try {
@@ -42,6 +44,7 @@ export default function SignIn() {
 
   return (
     <section className="max-w-md mx-auto p-4">
+      {Alert}
       <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">Welcome Back</h1>
       
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
