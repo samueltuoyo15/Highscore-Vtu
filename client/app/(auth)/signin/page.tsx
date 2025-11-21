@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Mail, Lock } from "lucide-react";
 import { SIGN_IN_FORM_FIELDS } from "@/constants/constants";
-import { useRouter } from "next/navigation";
 
 const signInSchema = z.object({
   email: z.string().email("Email is required").min(1, "Email is required"),
@@ -14,7 +13,6 @@ const signInSchema = z.object({
 type SignInFormData = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
-  const router = useRouter();
   const {
     register,
     handleSubmit,

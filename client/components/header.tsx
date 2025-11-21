@@ -2,9 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Bell } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
-
 export default function Header() {
   return (
     <header className="p-4 flex justify-between items-center">
