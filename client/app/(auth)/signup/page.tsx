@@ -43,16 +43,15 @@ export default function SignUp() {
 
   const onSubmit = async (data: SignupSchemaType) => {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/auth/signup`,
-        data,
-        {
-          headers: { "Content-Type": "application/json" },
-        },
-      );
+      // const response = await axios.post(
+      //   `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/auth/signup`,
+      //   data,
+      //   {
+      //     headers: { "Content-Type": "application/json" },
+      //   },
+      // );
       router.push("/");
       reset({ fullName: "", username: "", email: "", password: "", phone: "" });
-      console.log("Registration Successful", response.data);
     } catch (error) {
       console.error("Submission error:", error);
     }

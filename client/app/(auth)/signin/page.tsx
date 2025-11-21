@@ -29,11 +29,12 @@ export default function SignIn() {
   const onSubmit = async (data: SignInFormData) => {
     try {
       console.log("Form submitted with data:", data);
-      const success = await login(data.email, data.password);
-      if (success) {
-        reset();
-        router.push("/");
-      }
+      // const success = await login(data.email, data.password);
+      // if (success) {
+      //   reset();
+      //   router.push("/");
+      // }
+      // router.push("/")
       console.error("error:", error);
     } catch (err) {
       console.error("Submission error:", err, error);
