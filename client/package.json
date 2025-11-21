@@ -18,6 +18,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.1",
     "react-phone-number-input": "^3.4.12",
+    "sweetalert2": "^11.26.3",
     "tailwind-scrollbar-hide": "^2.0.0",
     "zod": "^3.24.3"
   },
