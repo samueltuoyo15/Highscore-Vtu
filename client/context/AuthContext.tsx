@@ -1,147 +1,154 @@
-"use client"
-import { createContext, useContext, useState, useEffect, ReactNode } from "react"
-import axios, { AxiosError } from "axios"
+"use client";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import axios, { AxiosError } from "axios";
 
 interface User {
-  id: string
-  username: string
-  avatar: string
-  email: string
-  full_name: string
-  phone: string
-  wallet_balance: number
-  kyc_verified: boolean
-  last_login: Date
-  total_spent?: number
+  id: string;
+  username: string;
+  avatar: string;
+  email: string;
+  full_name: string;
+  phone: string;
+  wallet_balance: number;
+  kyc_verified: boolean;
+  last_login: Date;
+  total_spent?: number;
 }
 
 interface AuthContextType {
-  user: User | null
-  isAuthenticated: boolean
-  isLoading: boolean
-  error: string | null
-  login: (email: string, password: string) => Promise<boolean>
-  logout: () => Promise<void>
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  error: string | null;
+  login: (email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider")
+    throw new Error("useAuth must be used within an AuthProvider");
   }
-  return context
-}
+  return context;
+};
 
 interface AuthProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    axios.defaults.withCredentials = true
-  }, [])
+    axios.defaults.withCredentials = true;
+  }, []);
 
   useEffect(() => {
-    let isMounted = true
-    const controller = new AbortController()
-    
+    let isMounted = true;
+    const controller = new AbortController();
+
     const getAuthUser = async () => {
       try {
         const response = await axios.get<User>(
-          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/user/get-auth-user`, 
-          { 
+          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/user/get-auth-user`,
+          {
             withCredentials: true,
-            signal: controller.signal
-          }
-        )
+            signal: controller.signal,
+          },
+        );
         if (isMounted) {
-          setUser(response.data)
-          setIsAuthenticated(true) 
-          setError(null)
+          setUser(response.data);
+          setIsAuthenticated(true);
+          setError(null);
         }
       } catch (err) {
-        const error = err as AxiosError<{ error?: string }>
+        const error = err as AxiosError<{ error?: string }>;
         if (isMounted && !axios.isCancel(error)) {
-          setUser(null)
-          setIsAuthenticated(false)
-          setError(error?.response?.data?.error || error?.response?.data?.message || "Failed to fetch user data")
-          console.error("Error fetching auth user:", error)
+          setUser(null);
+          setIsAuthenticated(false);
+          setError(error?.response?.data?.error || "Failed to fetch user data");
+          console.error("Error fetching auth user:", error);
         }
       } finally {
         if (isMounted) {
-          setIsLoading(false)
+          setIsLoading(false);
         }
       }
-    }
-    
-    getAuthUser()
+    };
+
+    getAuthUser();
     return () => {
-      isMounted = false
-      controller.abort()
-    }
-  }, [])
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-  try {
-    setIsLoading(true)
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/auth/signin`, 
-      { email, password },
-      { withCredentials: true }
-    )
-    setUser(response.data)
-    setIsAuthenticated(true)
-    setError(null)
-    return true
-  } catch (err) {
-    const error = err as AxiosError<{ message?: string; error?: string }>
-    const errorMessage = error.response?.data?.message || error.response?.data?.error || "Login failed"
-    setError(errorMessage)
-    console.error("Login error:", errorMessage)
-    setUser(null)
-    setIsAuthenticated(false)
-    return false
-  } finally {
-    setIsLoading(false)
-  }
-}
+    try {
+      setIsLoading(true);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/auth/signin`,
+        { email, password },
+        { withCredentials: true },
+      );
+      setUser(response.data);
+      setIsAuthenticated(true);
+      setError(null);
+      return true;
+    } catch (err) {
+      const error = err as AxiosError<{ message?: string; error?: string }>;
+      const errorMessage =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        "Login failed";
+      setError(errorMessage);
+      console.error("Login error:", errorMessage);
+      setUser(null);
+      setIsAuthenticated(false);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const logout = async (): Promise<void> => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/auth/logout`, 
-        {}, 
-        { withCredentials: true }
-      )
-      setUser(null)
-      setIsAuthenticated(false)
-      setError(null)
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/auth/logout`,
+        {},
+        { withCredentials: true },
+      );
+      setUser(null);
+      setIsAuthenticated(false);
+      setError(null);
     } catch {
-      setError("Logout failed")
+      setError("Logout failed");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const contextValue: AuthContextType = {
     user,
-    isAuthenticated, 
+    isAuthenticated,
     isLoading,
     error,
     login,
     logout,
-  }
+  };
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
-  )
-}
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
+};

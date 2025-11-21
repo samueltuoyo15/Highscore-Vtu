@@ -23,7 +23,7 @@ export default function Header() {
       <Link href="/profile" className="flex items-center">
         <Image
           className="rounded-full mr-5"
-          src={user.profilePicture || "/-go5dvk.jpg"}
+          src={user.avatar || "/-go5dvk.jpg"}
           alt="user-profile-pic"
           width={40}
           height={40}
