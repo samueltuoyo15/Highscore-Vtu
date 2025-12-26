@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowLeft, Landmark, CreditCard, User, CheckCircle } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 
 const banks = [
     { id: "gtb", name: "Guaranty Trust Bank" },
@@ -16,7 +16,7 @@ const banks = [
 ];
 
 export default function TransferPage() {
-    const router = useRouter();
+
     const [selectedBank, setSelectedBank] = useState("");
     const [accountNumber, setAccountNumber] = useState("");
     const [amount, setAmount] = useState("");
@@ -148,8 +148,8 @@ export default function TransferPage() {
                     disabled={!amount || !accountNumber || !selectedBank || loading}
                     onClick={handleTransfer}
                     className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all shadow-lg ${!amount || !accountNumber || !selectedBank || loading
-                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                            : "bg-pink-600 text-white hover:bg-pink-700 hover:shadow-pink-600/25 active:scale-[0.98]"
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-pink-600 text-white hover:bg-pink-700 hover:shadow-pink-600/25 active:scale-[0.98]"
                         }`}
                 >
                     {loading ? (

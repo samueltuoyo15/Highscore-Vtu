@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowLeft, Zap, CreditCard, CheckCircle } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 
 const providers = [
     { id: "ikedc", name: "Ikeja Electric", short: "IKEDC" },
@@ -69,8 +69,8 @@ export default function ElectricityPage() {
                                     setVerifiedName("");
                                 }}
                                 className={`flex items-center p-3 rounded-xl transition-all duration-300 text-left ${selectedProvider.id === p.id
-                                        ? "ring-2 ring-amber-500 ring-offset-1 bg-amber-50 border-amber-500"
-                                        : "bg-white border-gray-100 hover:bg-gray-50 hover:border-amber-200"
+                                    ? "ring-2 ring-amber-500 ring-offset-1 bg-amber-50 border-amber-500"
+                                    : "bg-white border-gray-100 hover:bg-gray-50 hover:border-amber-200"
                                     } border`}
                             >
                                 <div className="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold mr-3 shrink-0">
@@ -94,8 +94,8 @@ export default function ElectricityPage() {
                                 key={type}
                                 onClick={() => setMeterType(type)}
                                 className={`flex-1 py-2 text-sm font-medium rounded-md transition-all ${meterType === type
-                                        ? "bg-white text-amber-700 shadow-sm"
-                                        : "text-gray-500 hover:text-gray-700"
+                                    ? "bg-white text-amber-700 shadow-sm"
+                                    : "text-gray-500 hover:text-gray-700"
                                     }`}
                             >
                                 {type}
@@ -156,8 +156,8 @@ export default function ElectricityPage() {
                     disabled={!amount || !meterNumber || loading}
                     onClick={handlePurchase}
                     className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all shadow-lg ${!amount || !meterNumber || loading
-                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                            : "bg-amber-500 text-white hover:bg-amber-600 hover:shadow-amber-500/25 active:scale-[0.98]"
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-amber-500 text-white hover:bg-amber-600 hover:shadow-amber-500/25 active:scale-[0.98]"
                         }`}
                 >
                     {loading ? (

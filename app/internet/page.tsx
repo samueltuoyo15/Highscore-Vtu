@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, HardDrive, CreditCard, CheckCircle } from "lucide-react";
+import { ArrowLeft, HardDrive, CreditCard } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 
 const providers = [
     { id: "spectranet", name: "Spectranet", color: "bg-blue-600", text: "text-white" },
@@ -27,10 +27,16 @@ const plans = {
     ],
 };
 
+interface Plan {
+    id: number;
+    name: string;
+    price: number;
+}
+
 export default function InternetPage() {
     const [selectedProvider, setSelectedProvider] = useState(providers[0]);
     const [deviceId, setDeviceId] = useState("");
-    const [selectedPlan, setSelectedPlan] = useState<any>(null);
+    const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
     const [loading, setLoading] = useState(false);
 
     const currentPlans = plans[selectedProvider.id as keyof typeof plans] || [];
@@ -70,8 +76,8 @@ export default function InternetPage() {
                                     setSelectedPlan(null);
                                 }}
                                 className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all duration-300 ${selectedProvider.id === p.id
-                                        ? "ring-2 ring-indigo-500 ring-offset-2 scale-105 shadow-md"
-                                        : "opacity-60 hover:opacity-100 hover:bg-gray-100"
+                                    ? "ring-2 ring-indigo-500 ring-offset-2 scale-105 shadow-md"
+                                    : "opacity-60 hover:opacity-100 hover:bg-gray-100"
                                     } bg-white border border-gray-100`}
                             >
                                 <div className={`w-12 h-12 rounded-full ${p.color} ${p.text} flex items-center justify-center font-bold mb-2 shadow-sm`}>
@@ -109,8 +115,8 @@ export default function InternetPage() {
                                 key={pkg.id}
                                 onClick={() => setSelectedPlan(pkg)}
                                 className={`w-full flex justify-between items-center p-4 rounded-xl border transition-all duration-200 ${selectedPlan?.id === pkg.id
-                                        ? "border-indigo-600 bg-indigo-50 ring-1 ring-indigo-600"
-                                        : "border-gray-100 bg-white hover:border-indigo-200"
+                                    ? "border-indigo-600 bg-indigo-50 ring-1 ring-indigo-600"
+                                    : "border-gray-100 bg-white hover:border-indigo-200"
                                     }`}
                             >
                                 <span className="font-bold text-gray-800">{pkg.name}</span>
@@ -128,8 +134,8 @@ export default function InternetPage() {
                     disabled={!selectedPlan || !deviceId || loading}
                     onClick={handlePurchase}
                     className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all shadow-lg ${!selectedPlan || !deviceId || loading
-                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                            : "bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-indigo-600/25 active:scale-[0.98]"
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-indigo-600/25 active:scale-[0.98]"
                         }`}
                 >
                     {loading ? (

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, Check, Smartphone, Wifi, CreditCard } from "lucide-react";
+import { ArrowLeft, Check, Smartphone, CreditCard } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 
 const providers = [
     { id: "mtn", name: "MTN", color: "bg-yellow-400", text: "text-yellow-900" },
@@ -37,12 +37,19 @@ const plans = {
     ],
 };
 
+interface Plan {
+    id: number;
+    name: string;
+    price: number;
+    validity: string;
+}
+
 export default function DataPage() {
-    const router = useRouter();
+
     const [selectedProvider, setSelectedProvider] = useState(providers[0]);
     const [selectedPlanType, setSelectedPlanType] = useState("SME");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [selectedPlan, setSelectedPlan] = useState<any>(null);
+    const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
     const [loading, setLoading] = useState(false);
 
     // Filter plans based on provider (and plan type in a real app, simplified here)
