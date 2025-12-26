@@ -1,5 +1,5 @@
 "use client";
-import { Plus, Eye, EyeOff, Send, Download } from "lucide-react";
+import { Plus, Eye, EyeOff, Send } from "lucide-react";
 import { useState } from "react";
 
 export default function Balance() {
