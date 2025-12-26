@@ -2,41 +2,55 @@
 import Header from "@/components/header"
 import Balance from "@/components/balance"
 import Services from "@/components/services"
+import { ArrowRight, Zap, TrendingUp } from "lucide-react"
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50/50" onContextMenu={(e) => e.preventDefault()}>
+    <div className="min-h-screen bg-white md:bg-gray-50/30" onContextMenu={(e) => e.preventDefault()}>
       <Header />
-      <main className="space-y-4 animate-fade-in">
+      <main className="space-y-6 animate-fade-in pb-24 md:pb-10">
         <Balance />
         <Services />
 
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6 pb-10">
-          <div className="bg-gradient-to-r from-slate-900 to-emerald-900 rounded-3xl p-8 text-white relative overflow-hidden shadow-lg">
-            <div className="relative z-10">
-              <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-semibold mb-4 backdrop-blur-md border border-white/10">Special Offer</span>
-              <h3 className="text-2xl font-bold mb-2">Get 5% Cashback</h3>
-              <p className="text-slate-300 mb-6 text-sm">On your first airtime recharge of the month. Terms apply.</p>
-              <button className="px-5 py-2 bg-white text-slate-900 rounded-xl text-sm font-bold hover:bg-slate-50 transition-colors">Learn More</button>
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-gray-900 rounded-2xl p-8 text-white relative overflow-hidden group cursor-pointer">
+            <div className="relative z-10 flex flex-col items-start h-full justify-between min-h-[160px]">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/5 text-xs font-medium mb-4">
+                  <Zap className="w-3 h-3 text-yellow-400" fill="currentColor" />
+                  <span>Limited Offer</span>
+                </div>
+                <h3 className="text-2xl font-bold tracking-tight mb-2">5% Interest on Savings</h3>
+                <p className="text-gray-400 text-sm max-w-xs">Grow your wealth with our new high-yield savings vault.</p>
+              </div>
+              <div className="flex items-center gap-2 text-sm font-semibold mt-6 group-hover:gap-3 transition-all">
+                Start Saving <ArrowRight className="w-4 h-4" />
+              </div>
             </div>
-            <div className="absolute right-0 bottom-0 w-32 h-32 bg-white/5 rounded-full blur-2xl translate-x-10 translate-y-10"></div>
+            <div className="absolute right-0 bottom-0 opacity-10">
+              <TrendingUp className="w-48 h-48 -translate-y-10 translate-x-10" />
+            </div>
           </div>
 
-          <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Recent Activity</h3>
-            <div className="space-y-4">
+          <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-col">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-base font-bold text-gray-900">Recent Activity</h3>
+              <button className="text-xs font-semibold text-gray-500 hover:text-black">View All</button>
+            </div>
+
+            <div className="space-y-1 flex-1">
               {[1, 2, 3].map((_, i) => (
-                <div key={i} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer group">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs group-hover:bg-primary group-hover:text-white transition-colors">
+                <div key={i} className="flex items-center justify-between p-3 -mx-3 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer group">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-bold text-xs group-hover:bg-primary group-hover:text-white transition-colors duration-200">
                       MTN
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-gray-700">Airtime Purchase</p>
-                      <p className="text-xs text-gray-400">Today, 10:23 AM</p>
+                      <p className="text-sm font-semibold text-gray-900">Airtime Purchase</p>
+                      <p className="text-xs text-gray-500 font-medium">Today, 10:23 AM</p>
                     </div>
                   </div>
-                  <span className="text-sm font-bold text-red-500">-₦500.00</span>
+                  <span className="text-sm font-semibold text-gray-900">-₦500.00</span>
                 </div>
               ))}
             </div>
