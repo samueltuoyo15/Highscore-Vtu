@@ -12,12 +12,12 @@ export default function Home() {
         <Services />
 
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6 pb-10">
-          <div className="bg-gradient-to-r from-purple-900 to-indigo-900 rounded-3xl p-8 text-white relative overflow-hidden shadow-lg">
+          <div className="bg-gradient-to-r from-slate-900 to-emerald-900 rounded-3xl p-8 text-white relative overflow-hidden shadow-lg">
             <div className="relative z-10">
               <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-semibold mb-4 backdrop-blur-md border border-white/10">Special Offer</span>
               <h3 className="text-2xl font-bold mb-2">Get 5% Cashback</h3>
-              <p className="text-indigo-200 mb-6 text-sm">On your first airtime recharge of the month. Terms apply.</p>
-              <button className="px-5 py-2 bg-white text-indigo-900 rounded-xl text-sm font-bold hover:bg-indigo-50 transition-colors">Learn More</button>
+              <p className="text-slate-300 mb-6 text-sm">On your first airtime recharge of the month. Terms apply.</p>
+              <button className="px-5 py-2 bg-white text-slate-900 rounded-xl text-sm font-bold hover:bg-slate-50 transition-colors">Learn More</button>
             </div>
             <div className="absolute right-0 bottom-0 w-32 h-32 bg-white/5 rounded-full blur-2xl translate-x-10 translate-y-10"></div>
           </div>
@@ -28,7 +28,7 @@ export default function Home() {
               {[1, 2, 3].map((_, i) => (
                 <div key={i} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer group">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-primary font-bold text-xs group-hover:bg-primary group-hover:text-white transition-colors">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs group-hover:bg-primary group-hover:text-white transition-colors">
                       MTN
                     </div>
                     <div>

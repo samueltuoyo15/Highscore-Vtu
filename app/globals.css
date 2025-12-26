@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --primary: #4f46e5;
+  /* Emerald/Teal Theme - Wealth & Growth */
+  --primary: #059669;
   --primary-foreground: #ffffff;
-  --secondary: #e0e7ff;
-  --secondary-foreground: #3730a3;
-  --background: #f8fafc;
+  --secondary: #ecfdf5;
+  --secondary-foreground: #064e3b;
+  --background: #f0fdfa;
   --foreground: #0f172a;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;

@@ -38,7 +38,7 @@ export default function Navigation() {
 
             <aside className="hidden md:flex flex-col fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 z-50">
                 <div className="p-6">
-                    <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
                         <LayoutGrid className="w-8 h-8 text-primary" />
                         FinTech
                     </h1>
@@ -64,7 +64,7 @@ export default function Navigation() {
                 </nav>
 
                 <div className="p-4 border-t border-gray-100">
-                    <div className="bg-gradient-to-br from-primary/10 to-purple-500/10 p-4 rounded-xl border border-primary/10">
+                    <div className="bg-gradient-to-br from-primary/5 to-emerald-500/5 p-4 rounded-xl border border-primary/10">
                         <h4 className="text-sm font-semibold text-primary mb-1">Need Help?</h4>
                         <p className="text-xs text-gray-500 mb-3">Contact our support team for assistance.</p>
                         <button className="w-full py-2 bg-white text-primary text-xs font-bold rounded-lg border border-primary/20 hover:bg-primary hover:text-white transition-colors">
